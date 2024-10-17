@@ -1,0 +1,187 @@
+//Singly linked list
+//Array to Singly linked list
+
+class Solution {
+    static Node constructLL(int arr[]) {
+        if (arr.length == 0) return null;
+
+        Node head = new Node(arr[0]);
+        Node mov = head;
+
+
+
+        for (int i = 1; i < arr.length; i++) {
+            Node temp = new Node(arr[i]);
+            mov.next = temp;
+            mov = mov.next;
+
+        }
+
+
+        return head;
+    }
+}
+
+//Insertion and Display
+
+class LinkedList {
+    void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+
+    void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = newNode;
+    }
+
+    void insertAtPosition(int data, int position) {
+        Node newNode = new Node(data);
+        if (position == 0) {
+            insertAtBeginning(data);
+            return;
+        }
+        Node temp = head;
+        for (int i = 0; i < position - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+        if (temp == null) {
+            System.out.println("Position out of range");
+            return;
+        }
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+//Deletion and display
+
+class LinkedList {
+    void deleteAtBeginning() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        head = head.next;
+    }
+
+    void deleteAtEnd() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+        Node temp = head;
+        while (temp.next.next != null) {
+            temp = temp.next;
+        }
+        temp.next = null;
+    }
+
+    void deleteAtPosition(int position) {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        if (position == 0) {
+            deleteAtBeginning();
+            return;
+        }
+        Node temp = head;
+        for (int i = 0; i < position - 1 && temp.next != null; i++) {
+            temp = temp.next;
+        }
+        if (temp.next == null) {
+            System.out.println("Position out of range");
+            return;
+        }
+        temp.next = temp.next.next;
+    }
+
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+}
+
+//length of linkedlist
+class Solution {
+    // Function to count nodes of a linked list.
+    public int getCount(Node head) {
+        // code here
+        int count=1;
+        Node temp = head;
+        while(temp.next!=null){
+            temp=temp.next;
+            count++;
+        }
+        return count;
+        
+    }
+}
+
+//searching in linkedlist
+class Solution {
+    static boolean searchKey(int n, Node head, int key) {
+        // Code here
+        Node temp = head;
+        while(temp.next!=null){
+            if(temp.data==key){
+                return true;
+                
+            }
+            temp=temp.next;
+        }
+        return false;
+    }
+}
+
+//Doubly linkedlist
+
+//array to doubly linkedlist
+class Solution {
+    Node constructDLL(int arr[]) {
+        // Code here
+        Node head = new Node(arr[0]);
+        Node mover = head;
+        for(int i = 1 ; i < arr.length ; i++){
+            Node temp = new Node();
+            mover.next=temp;
+            temp.prev=mover;
+            mover=mover.next;
+        }
+        return head;
+    }
+}
+
