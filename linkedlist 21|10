@@ -1,0 +1,165 @@
+\\ https://leetcode.com/problems/sort-list/submissions/1428958189/
+\\ 148. Sort List
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode mid = getMid(head);
+        ListNode left = sortList(head);
+        ListNode right = sortList(mid);
+        return merge(left, right);
+    }
+
+    public ListNode getMid(ListNode head) {
+        ListNode prev = null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if (prev != null) {
+            prev.next = null;
+        }
+        return slow;
+    }
+
+    public ListNode merge(ListNode left, ListNode right) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        while (left != null && right != null) {
+            if (left.val < right.val) {
+                current.next = left;
+                left = left.next;
+            } else {
+                current.next = right;
+                right = right.next;
+            }
+            current = current.next;
+        }
+        current.next = (left != null) ? left : right;
+        return dummy.next;
+    }
+}
+
+//https://www.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-linked-list/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=add-1-to-a-number-represented-as-linked-list
+//Add 1 to a Linked List Number
+class Solution {
+    public Node addOne(Node head) {
+        head = reverse(head);
+        Node curr = head;
+        int carry = 1;
+
+        while (curr != null) {
+            int sum = curr.data + carry;
+            curr.data = sum % 10;
+            carry = sum / 10;
+
+            if (carry == 0) break;
+
+            if (curr.next == null && carry != 0) {
+                curr.next = new Node(carry);
+                break;
+            }
+            curr = curr.next;
+        }
+
+        head = reverse(head);
+        return head;
+    }
+
+    private Node reverse(Node head) {
+        Node prev = null;
+        Node curr = head;
+        while (curr != null) {
+            Node newn = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = newn;
+        }
+        return prev;
+    }
+}
+
+https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=given-a-linked-list-of-0s-1s-and-2s-sort-it
+Sort a linked list of 0s, 1s and 2s
+class Solution {
+    static Node segregate(Node head) {
+        if (head == null || head.next == null) return head;
+
+        Node zerod = new Node(0);
+        Node oned = new Node(0);
+        Node twod = new Node(0);
+
+        Node zero = zerod, one = oned, two = twod, current = head;
+
+        while (current != null) {
+            if (current.data == 0) {
+                zero.next = current;
+                zero = zero.next;
+            } else if (current.data == 1) {
+                one.next = current;
+                one = one.next;
+            } else {
+                two.next = current;
+                two = two.next;
+            }
+            current = current.next;
+        }
+
+        zero.next = (oned.next != null) ? oned.next : twod.next;
+        one.next = twod.next;
+        two.next = null;
+
+        return zerod.next;
+    }
+}
+
+\\https://leetcode.com/problems/intersection-of-two-linked-lists/
+\\160. Intersection of Two Linked Lists
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+
+        ListNode a = headA;
+        ListNode b = headB;
+        while (a != b) {
+            a = (a == null) ? headB : a.next;
+            b = (b == null) ? headA : b.next;
+        }
+
+        return a;
+    }
+}
+
+\\https://leetcode.com/problems/add-two-numbers/description/
+\\2. Add Two Numbers
+
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        int carry = 0;
+
+        while (l1 != null || l2 != null || carry != 0) {
+            int sum = carry;
+
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+
+            carry = sum / 10; 
+            current.next = new ListNode(sum % 10);  
+            current = current.next;  
+        }
+
+        return dummy.next;  
+    }
+}
