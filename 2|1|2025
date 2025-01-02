@@ -1,0 +1,34 @@
+2559. Count Vowel Strings in Ranges
+https://leetcode.com/problems/count-vowel-strings-in-ranges/description/?envType=daily-question&envId=2025-01-02
+class Solution {
+    public int[] vowelStrings(String[] words, int[][] queries) {
+        int n = words.length;
+        int[] prefix = new int[n + 1];
+        
+
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + (isVowelString(words[i]) ? 1 : 0);
+        }
+        
+        int[] results = new int[queries.length];
+        
+
+        for (int i = 0; i < queries.length; i++) {
+            int li = queries[i][0];
+            int ri = queries[i][1];
+            results[i] = prefix[ri + 1] - prefix[li];
+        }
+        
+        return results;
+    }
+
+
+    private boolean isVowel(char c) {
+        return "aeiou".indexOf(c) != -1;
+    }
+
+
+    private boolean isVowelString(String word) {
+        return isVowel(word.charAt(0)) && isVowel(word.charAt(word.length() - 1));
+    }
+}
