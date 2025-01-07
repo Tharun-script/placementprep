@@ -1,0 +1,75 @@
+Shifting letters 1
+class Solution {
+    public String shiftingLetters(String s, int[] shifts) {
+        int n = shifts.length;
+        int[] resv = new int[n];
+        int current = 0 ;
+        for (int i = n - 1; i >= 0; i--) {
+            current = (current + shifts[i]) % 26;
+            resv[i] = current;
+        }
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i< n ; i++){
+            char originalChar = s.charAt(i);
+            int shift = resv[i];
+            char newChar = (char) ((originalChar - 'a' + shift ) % 26 + 'a');
+            result.append(newChar);
+        }
+        return result.toString();       
+    }
+}
+
+-----------------------------------------------------------------
+
+shifting letter 2
+
+class Solution {
+    public String shiftingLetters(String s, int[][] shifts) {
+        int n = s.length();
+        int[] d = new int[n + 1];
+        for(int[] sh : shifts){
+            int start = sh[0];
+            int end = sh[1];
+            int dir = sh[2];
+            int shiftv = (dir == 1) ? 1:-1;
+            d[start] += shiftv;
+            d[end+1]-=shiftv;
+            
+        }
+        int[] net = new int[n];
+        int current = 0;
+        for(int i =0 ; i<n ; i++){
+            current+=d[i];
+            net[i]=current;
+        }
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i< n ; i++){
+            char originalChar = s.charAt(i);
+            int shift = net[i];
+            char newChar = (char) ((originalChar - 'a' + shift % 26 + 26) % 26 + 'a');
+            result.append(newChar);
+        }
+        return result.toString();
+    }
+}
+
+-----------------------------------------------------------
+string mathching leetcode POD
+    public List<String> stringMatching(String[] words) {
+        int n = words.length;
+        List<String> res = new ArrayList<>();
+        Arrays.sort(words,(a,b) -> a.length() - b.length());
+
+        for(int i =0 ; i < n ; i++){
+            for(int j = i+1 ; j<n ; j++){
+                if (words[j].contains(words[i])) {
+                    res.add(words[i]);
+                    break;
+                }
+            }
+
+            
+        }
+        return res;
+    }
+}
